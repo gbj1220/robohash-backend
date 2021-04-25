@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { signUp } = require("./controller/usersController");
+var { signUp, login } = require("./controller/usersController");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -9,5 +9,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/sign-up", signUp);
+
+router.post("/login", login);
 
 module.exports = router;
