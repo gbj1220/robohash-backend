@@ -1,4 +1,3 @@
-const mongoErrorParser = require("../../lib/mongoErrorParser");
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -13,12 +12,11 @@ module.exports = {
 
       let hashedPassword = await bcrypt.hash(req.body.password, salted);
 
-      let { firstName, lastName, email } = req.body;
+      const { username, email } = req.body;
 
-      let createdUser = new User({
-        firstName,
-        lastName,
+      const createdUser = new User({
         email,
+        username,
         password: hashedPassword,
       });
 
@@ -28,13 +26,13 @@ module.exports = {
         data: savedUser,
       });
     } catch (e) {
-      res.status(500).json(mongoErrorParser(e));
+      res.status(500).json({ message: e.message });
     }
   },
 
   login: async (req, res) => {
     try {
-      let foundUser = await User.findOne({ email: req.body.email });
+      const foundUser = await User.findOne({ email: req.body.email });
 
       if (!foundUser) {
         throw {
@@ -43,7 +41,7 @@ module.exports = {
         };
       }
 
-      let comparedPassword = await bcrypt.compare(
+      const comparedPassword = await bcrypt.compare(
         req.body.password,
         foundUser.password
       );
@@ -53,7 +51,7 @@ module.exports = {
           message: "Password is incorrect. Please try again.",
         };
       } else {
-        let jwtToken = jwt.sign(
+        const jwtToken = jwt.sign(
           {
             email: foundUser.email,
           },
@@ -65,7 +63,7 @@ module.exports = {
         });
       }
     } catch (e) {
-      res.status(500).json(mongoErrorParser(e));
+      res.status(500).json({ message: e.message });
     }
   },
 
