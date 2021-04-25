@@ -1,5 +1,5 @@
 const { isEmpty, isEmail, matches, isStrongPassword } = require("validator");
-const mongoDBErrorHelper = require("./mongoDBErrorParser");
+const mongoErrorHelper = require("./mongoErrorParser");
 
 const checkIfEmpty = (target) => {
   if (isEmpty(target)) {
@@ -62,7 +62,7 @@ const checkIfInputIsEmpty = (req, res, next) => {
   }
 
   if (Object.keys(errObj).length > 0) {
-    res.status(500).json(mongoDBErrorHelper({ message: errObj }));
+    res.status(500).json(mongoErrorHelper({ message: errObj }));
   } else {
     next();
   }
@@ -81,7 +81,7 @@ const checkForSymbolsMiddleWare = (req, res, next) => {
   }
 
   if (Object.keys(errorObj).length > 0) {
-    res.status(500).json(mongoDBErrorHelper({ message: errorObj }));
+    res.status(500).json(mongoErrorHelper({ message: errorObj }));
   } else {
     next();
   }
@@ -101,7 +101,7 @@ const checkIfLoginIsEmpty = (req, res, next) => {
   }
 
   if (Object.keys(errorObj).length > 0) {
-    res.status(500).json(mongoDBErrorHelper({ message: errorObj }));
+    res.status(500).json(mongoErrorHelper({ message: errorObj }));
   } else {
     next();
   }
@@ -118,7 +118,7 @@ const checkForStrongPassword = (req, res, next) => {
   }
 
   if (Object.keys(errorObj).length > 0) {
-    res.status(500).json(mongoDBErrorHelper({ fuck: errorObj }));
+    res.status(500).json(mongoErrorHelper({ error: errorObj }));
   } else {
     next();
   }

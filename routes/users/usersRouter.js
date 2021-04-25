@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { signUp, login } = require("./controller/usersController");
+const { signUp, login, sendEmail } = require("./controller/usersController");
 
 const {
   checkIfInputIsEmpty,
@@ -23,5 +23,7 @@ router.post(
 );
 
 router.post("/login", checkIfLoginIsEmpty, login);
+
+router.post("/send-email", sendEmail);
 
 module.exports = router;
