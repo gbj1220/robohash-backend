@@ -30,7 +30,6 @@ module.exports = {
       res.status(500).json(mongoErrorParser(e));
     }
   },
-
   login: async (req, res) => {
     try {
       let foundUser = await User.findOne({ email: req.body.email });
