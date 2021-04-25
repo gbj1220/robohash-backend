@@ -7,6 +7,7 @@ const {
   checkIfInputIsEmpty,
   checkForSymbolsMiddleWare,
   checkForStrongPassword,
+  git test
   checkIfLoginIsEmpty,
 } = require("../lib/validator");
 /* GET users listing. */
