@@ -99,7 +99,7 @@ module.exports = {
     sgMail.setApiKey(process.env.SEND_GRID);
     const msg = {
       to: "3531op@gmail.com", // Change to your recipient
-      from: "gregory.johnson@codeimmersives.com", // Change to your verified sender
+      from: "verklebende@fremontquote.com", // Change to your verified sender
       subject: "Sending with SendGrid is Fun",
       text: "and easy to do anywhere, even with Node.js",
     };
