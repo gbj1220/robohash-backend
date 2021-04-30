@@ -12,15 +12,16 @@ module.exports = {
 
       let hashedPassword = await bcrypt.hash(req.body.password, salted);
 
-      const { username, email } = req.body;
+      const { firstName, lastName, email } = req.body;
 
       const createdUser = new User({
+        firstName,
+        lastName,
         email,
-        username,
         password: hashedPassword,
       });
 
-      let savedUser = await createdUser.save();
+      const savedUser = await createdUser.save();
 
       res.json({
         data: savedUser,
@@ -59,7 +60,7 @@ module.exports = {
           { expiresIn: "8h" }
         );
         res.json({
-          jwtToken: jwtToken,
+          jwtToken,
         });
       }
     } catch (e) {
@@ -96,7 +97,7 @@ module.exports = {
   sendEmail: (req, res) => {
     sgMail.setApiKey(process.env.SEND_GRID);
     const msg = {
-      to: "3531op@gmail.com", // Change to your recipient
+      to: ["3531op@gmail.com", "gregory.johnson@codeimmersives.com"], // Change to your recipient // can use multiple addresses using array
       from: "verklebende@fremontquote.com", // Change to your verified sender
       subject: "Sending with SendGrid is Fun",
       text: "and easy to do anywhere, even with Node.js",
