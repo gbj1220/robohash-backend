@@ -2,6 +2,7 @@ const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
+const axios = require("axios");
 
 require("dotenv").config();
 
