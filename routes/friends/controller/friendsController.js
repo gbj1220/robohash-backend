@@ -15,8 +15,6 @@ module.exports = {
 
       const newSavedItem = await friendsList.save();
 
-      console.log(req.headers.authorization);
-
       const token = req.headers.authorization.slice(7);
 
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -35,18 +33,17 @@ module.exports = {
 
   getFriendsList: async (req, res) => {
     try {
-      let jwtToken = req.headers.authorization.slice(7);
+      const jwtToken = req.headers.authorization.slice(7);
 
-      let decodedToken = jwt.verify(jwtToken, process.env.JWT_SECRET);
+      const decodedToken = jwt.verify(jwtToken, process.env.JWT_SECRET);
 
-      let payload = await User.findOne({ email: decodedToken.email })
+      const payload = await User.findOne({ email: decodedToken.email })
         .populate({
           path: "friends",
           model: "newFriendsListItem",
           select: "-__v",
         })
         .select("-email -password -firstName -lastName  -__v ");
-      console.log(payload);
       res.json(payload);
     } catch (e) {
       res.status(500).json({ message: e.message });
